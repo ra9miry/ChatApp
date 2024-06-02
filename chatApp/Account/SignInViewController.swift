@@ -97,15 +97,3 @@ final class SignInViewController: UIViewController {
         }
     }
 }
-
-private extension UITextField {
-    func setLeftPaddingPoints(_ amount:CGFloat){
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.height))
-        self.leftView = paddingView
-        self.leftViewMode = .always
-    }
-    
-    func setPlaceholder(color: UIColor) {
-        self.attributedPlaceholder = NSAttributedString(string: self.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor: color])
-    }
-}

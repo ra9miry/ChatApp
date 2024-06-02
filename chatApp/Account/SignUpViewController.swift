@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class SignUpViewController: UIViewController {
     
@@ -68,7 +69,7 @@ final class SignUpViewController: UIViewController {
     }
     
     @objc func signInButtonTapped() {
-        navigationController?.pushViewController(TabBarViewController(), animated: true)
+        navigationController?.pushViewController(CreateAccountViewController(), animated: true)
     }
     
     @objc func popViewController() {
@@ -104,7 +105,7 @@ final class SignUpViewController: UIViewController {
     }
 }
 
-private extension UITextField {
+extension UITextField {
     func setLeftPaddingPoints(_ amount:CGFloat){
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.height))
         self.leftView = paddingView
