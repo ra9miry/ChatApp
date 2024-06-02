@@ -1,14 +1,9 @@
-//
-//  ChatTableViewCell.swift
-//  chatApp
-//
-//  Created by Радмир Тельман on 02.06.2024.
-//
 
 import UIKit
 import SnapKit
 
-class ChatTableViewCell: UITableViewCell {
+class ContactsTableViewCell: UITableViewCell {
+    
     let avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -19,14 +14,7 @@ class ChatTableViewCell: UITableViewCell {
     
     let userNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "mulish-bold", size: 18)
-        return label
-    }()
-    
-    let lastMessageLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "Mulish", size: 14)
-        label.textColor = .gray
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
     
@@ -42,10 +30,9 @@ class ChatTableViewCell: UITableViewCell {
     private func setupViews() {
         addSubview(avatarImageView)
         addSubview(userNameLabel)
-        addSubview(lastMessageLabel)
         
         avatarImageView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
+            make.leading.equalToSuperview().offset(0)
             make.centerY.equalToSuperview()
             make.width.height.equalTo(50)
         }
@@ -55,17 +42,10 @@ class ChatTableViewCell: UITableViewCell {
             make.top.equalTo(avatarImageView.snp.top)
             make.trailing.equalToSuperview().offset(-20)
         }
-        
-        lastMessageLabel.snp.makeConstraints { make in
-            make.leading.equalTo(userNameLabel.snp.leading)
-            make.top.equalTo(userNameLabel.snp.bottom).offset(4)
-            make.trailing.equalTo(userNameLabel.snp.trailing)
-        }
     }
     
-    func configure(with chatUser: ChatUser) {
+    func configure(with chatUser: YourContacts) {
         avatarImageView.image = UIImage(named: chatUser.avatarName)
         userNameLabel.text = chatUser.userName
-        lastMessageLabel.text = chatUser.lastMessage
     }
 }

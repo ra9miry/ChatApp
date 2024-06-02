@@ -27,6 +27,9 @@
 		512E2BC62C0C6FC800700D4A /* MoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BC52C0C6FC800700D4A /* MoreTableViewCell.swift */; };
 		512E2BCA2C0C752800700D4A /* MorePrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BC92C0C752800700D4A /* MorePrivacyViewController.swift */; };
 		512E2BCC2C0C8FB200700D4A /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BCB2C0C8FB200700D4A /* ChatTableViewCell.swift */; };
+		512E2BCE2C0C925F00700D4A /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BCD2C0C925F00700D4A /* ContactsTableViewCell.swift */; };
+		512E2BD22C0C959300700D4A /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BD12C0C959300700D4A /* MessagesViewController.swift */; };
+		512E2BD42C0C95BF00700D4A /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BD32C0C95BF00700D4A /* MessagesTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +53,9 @@
 		512E2BC52C0C6FC800700D4A /* MoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreTableViewCell.swift; sourceTree = "<group>"; };
 		512E2BC92C0C752800700D4A /* MorePrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorePrivacyViewController.swift; sourceTree = "<group>"; };
 		512E2BCB2C0C8FB200700D4A /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
+		512E2BCD2C0C925F00700D4A /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
+		512E2BD12C0C959300700D4A /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		512E2BD32C0C95BF00700D4A /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				512E2BBF2C0C65D000700D4A /* ContactsViewController.swift */,
+				512E2BCD2C0C925F00700D4A /* ContactsTableViewCell.swift */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -139,6 +146,7 @@
 		512E2BBB2C0C59C900700D4A /* Chats */ = {
 			isa = PBXGroup;
 			children = (
+				512E2BD02C0C94F100700D4A /* Messages */,
 				512E2BC12C0C65D900700D4A /* ChatsViewController.swift */,
 				512E2BCB2C0C8FB200700D4A /* ChatTableViewCell.swift */,
 			);
@@ -153,6 +161,15 @@
 				512E2BC92C0C752800700D4A /* MorePrivacyViewController.swift */,
 			);
 			path = More;
+			sourceTree = "<group>";
+		};
+		512E2BD02C0C94F100700D4A /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				512E2BD12C0C959300700D4A /* MessagesViewController.swift */,
+				512E2BD32C0C95BF00700D4A /* MessagesTableViewCell.swift */,
+			);
+			path = Messages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +252,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				512E2BD22C0C959300700D4A /* MessagesViewController.swift in Sources */,
+				512E2BD42C0C95BF00700D4A /* MessagesTableViewCell.swift in Sources */,
+				512E2BCE2C0C925F00700D4A /* ContactsTableViewCell.swift in Sources */,
 				512E2BB82C0C593900700D4A /* CreateAccountViewController.swift in Sources */,
 				512E2BC62C0C6FC800700D4A /* MoreTableViewCell.swift in Sources */,
 				512E2BB42C0C590C00700D4A /* SignInViewController.swift in Sources */,
