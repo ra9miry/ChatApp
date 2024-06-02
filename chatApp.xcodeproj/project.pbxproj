@@ -26,6 +26,7 @@
 		512E2BC42C0C65E100700D4A /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BC32C0C65E100700D4A /* MoreViewController.swift */; };
 		512E2BC62C0C6FC800700D4A /* MoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BC52C0C6FC800700D4A /* MoreTableViewCell.swift */; };
 		512E2BCA2C0C752800700D4A /* MorePrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BC92C0C752800700D4A /* MorePrivacyViewController.swift */; };
+		512E2BCC2C0C8FB200700D4A /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BCB2C0C8FB200700D4A /* ChatTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		512E2BC32C0C65E100700D4A /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		512E2BC52C0C6FC800700D4A /* MoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreTableViewCell.swift; sourceTree = "<group>"; };
 		512E2BC92C0C752800700D4A /* MorePrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorePrivacyViewController.swift; sourceTree = "<group>"; };
+		512E2BCB2C0C8FB200700D4A /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				512E2BC12C0C65D900700D4A /* ChatsViewController.swift */,
+				512E2BCB2C0C8FB200700D4A /* ChatTableViewCell.swift */,
 			);
 			path = Chats;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				512E2BC02C0C65D000700D4A /* ContactsViewController.swift in Sources */,
 				512E2BA72C0C47D000700D4A /* StartViewController.swift in Sources */,
 				512E2BC22C0C65D900700D4A /* ChatsViewController.swift in Sources */,
+				512E2BCC2C0C8FB200700D4A /* ChatTableViewCell.swift in Sources */,
 				512E2BB62C0C591A00700D4A /* SignUpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
