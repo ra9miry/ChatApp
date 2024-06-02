@@ -19,6 +19,7 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
         tf.setLeftPaddingPoints(20)
         tf.setPlaceholder(color: UIColor(named: "ngray") ?? .gray)
         tf.inputAccessoryView = createDoneToolbar()
+        tf.addTarget(self, action: #selector(searchTextChanged), for: .editingChanged)
         return tf
     }()
     
@@ -36,6 +37,8 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
         ChatUser(avatarName: "ava3", userName: "Erlan Sadewa", lastMessage: "Aight, noted")
     ]
     
+    private var filteredChatUsers: [ChatUser] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "nwhite")
@@ -51,6 +54,7 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
         view.addGestureRecognizer(tapGesture)
         
         setupConstraints()
+        filteredChatUsers = chatUsers
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,31 +116,36 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return chatUsers.count
+        return filteredChatUsers.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChatTableViewCell", for: indexPath) as? ChatTableViewCell else {
             return UITableViewCell()
         }
-        cell.configure(with: chatUsers[indexPath.row])
+        cell.configure(with: filteredChatUsers[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let messagesVC = MessagesViewController()
-        messagesVC.title = chatUsers[indexPath.row].userName
+        messagesVC.title = filteredChatUsers[indexPath.row].userName
         navigationController?.pushViewController(messagesVC, animated: true)
     }
     
-    // MARK: - UIGestureRecognizerDelegate
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        if let view = touch.view, view.isDescendant(of: chatsTableView) {
-            return false
+    @objc private func searchTextChanged() {
+        guard let searchText = searchTextField.text?.lowercased() else {
+            filteredChatUsers = chatUsers
+            chatsTableView.reloadData()
+            return
         }
-        return true
+        if searchText.isEmpty {
+            filteredChatUsers = chatUsers
+        } else {
+            filteredChatUsers = chatUsers.filter { $0.userName.lowercased().contains(searchText) }
+        }
+        chatsTableView.reloadData()
     }
     
     // MARK: - Helper Methods
@@ -152,5 +161,14 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
     
     @objc private func doneButtonTapped() {
         searchTextField.resignFirstResponder()
+    }
+    
+    // MARK: - UIGestureRecognizerDelegate
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if let view = touch.view, view.isDescendant(of: chatsTableView) {
+            return false
+        }
+        return true
     }
 }

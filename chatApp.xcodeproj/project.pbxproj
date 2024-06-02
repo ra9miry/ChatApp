@@ -14,7 +14,6 @@
 		512E2B9F2C0C471C00700D4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 512E2B9D2C0C471C00700D4A /* LaunchScreen.storyboard */; };
 		512E2BA72C0C47D000700D4A /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BA62C0C47D000700D4A /* StartViewController.swift */; };
 		512E2BAA2C0C47F000700D4A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 512E2BA92C0C47F000700D4A /* SnapKit */; };
-		512E2BAC2C0C47F000700D4A /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 512E2BAB2C0C47F000700D4A /* SnapKit-Dynamic */; };
 		512E2BAF2C0C545000700D4A /* mulish-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 512E2BAD2C0C545000700D4A /* mulish-bold.ttf */; };
 		512E2BB02C0C545000700D4A /* Mulish.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 512E2BAE2C0C545000700D4A /* Mulish.ttf */; };
 		512E2BB42C0C590C00700D4A /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BB32C0C590C00700D4A /* SignInViewController.swift */; };
@@ -64,7 +63,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				512E2BAA2C0C47F000700D4A /* SnapKit in Frameworks */,
-				512E2BAC2C0C47F000700D4A /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,7 +188,6 @@
 			name = chatApp;
 			packageProductDependencies = (
 				512E2BA92C0C47F000700D4A /* SnapKit */,
-				512E2BAB2C0C47F000700D4A /* SnapKit-Dynamic */,
 			);
 			productName = chatApp;
 			productReference = 512E2B8F2C0C471A00700D4A /* chatApp.app */;
@@ -432,7 +429,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.chatApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.chatAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -464,7 +461,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.chatApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.chatAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -515,11 +512,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 512E2BA82C0C47F000700D4A /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		512E2BAB2C0C47F000700D4A /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 512E2BA82C0C47F000700D4A /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

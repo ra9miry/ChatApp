@@ -1,51 +1,59 @@
-
 import UIKit
 import SnapKit
 
-class ContactsTableViewCell: UITableViewCell {
+final class ContactsTableViewCell: UITableViewCell {
     
-    let avatarImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 25
-        imageView.clipsToBounds = true
-        return imageView
-    }()
-    
-    let userNameLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 18)
-        return label
-    }()
+    private let avatarLabel = UILabel()
+    private let userNameLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(with contact: YourContacts) {
+        avatarLabel.text = contact.avatarInitial
+        avatarLabel.backgroundColor = generateRandomColor()
+        userNameLabel.text = contact.userName
+    }
+    
     private func setupViews() {
-        addSubview(avatarImageView)
-        addSubview(userNameLabel)
+        contentView.addSubview(avatarLabel)
+        contentView.addSubview(userNameLabel)
         
-        avatarImageView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(0)
+        avatarLabel.textAlignment = .center
+        avatarLabel.textColor = .white
+        avatarLabel.layer.cornerRadius = 24
+        avatarLabel.clipsToBounds = true
+        avatarLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        
+        userNameLabel.font = UIFont.systemFont(ofSize: 16)
+        userNameLabel.textColor = UIColor(named: "nblack")
+    }
+    
+    private func setupConstraints() {
+        avatarLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16)
             make.centerY.equalToSuperview()
-            make.width.height.equalTo(50)
+            make.width.height.equalTo(48)
         }
         
         userNameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(avatarImageView.snp.trailing).offset(15)
-            make.top.equalTo(avatarImageView.snp.top)
-            make.trailing.equalToSuperview().offset(-20)
+            make.leading.equalTo(avatarLabel.snp.trailing).offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.centerY.equalToSuperview()
         }
     }
     
-    func configure(with chatUser: YourContacts) {
-        avatarImageView.image = UIImage(named: chatUser.avatarName)
-        userNameLabel.text = chatUser.userName
+    private func generateRandomColor() -> UIColor {
+        let red = CGFloat(arc4random_uniform(256)) / 255.0
+        let green = CGFloat(arc4random_uniform(256)) / 255.0
+        let blue = CGFloat(arc4random_uniform(256)) / 255.0
+        return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
     }
 }
