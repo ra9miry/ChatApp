@@ -18,7 +18,6 @@
 		512E2BB02C0C545000700D4A /* Mulish.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 512E2BAE2C0C545000700D4A /* Mulish.ttf */; };
 		512E2BB42C0C590C00700D4A /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BB32C0C590C00700D4A /* SignInViewController.swift */; };
 		512E2BB62C0C591A00700D4A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BB52C0C591A00700D4A /* SignUpViewController.swift */; };
-		512E2BB82C0C593900700D4A /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BB72C0C593900700D4A /* CreateAccountViewController.swift */; };
 		512E2BBE2C0C615C00700D4A /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BBD2C0C615C00700D4A /* TabBarViewController.swift */; };
 		512E2BC02C0C65D000700D4A /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BBF2C0C65D000700D4A /* ContactsViewController.swift */; };
 		512E2BC22C0C65D900700D4A /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BC12C0C65D900700D4A /* ChatsViewController.swift */; };
@@ -29,6 +28,8 @@
 		512E2BCE2C0C925F00700D4A /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BCD2C0C925F00700D4A /* ContactsTableViewCell.swift */; };
 		512E2BD22C0C959300700D4A /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BD12C0C959300700D4A /* MessagesViewController.swift */; };
 		512E2BD42C0C95BF00700D4A /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BD32C0C95BF00700D4A /* MessagesTableViewCell.swift */; };
+		512E2BD62C0CB5C800700D4A /* NetworkMenager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BD52C0CB5C800700D4A /* NetworkMenager.swift */; };
+		512E2BD92C0D7E8D00700D4A /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 512E2BD82C0D7E8D00700D4A /* NotificationBannerSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,7 +45,6 @@
 		512E2BAE2C0C545000700D4A /* Mulish.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Mulish.ttf; sourceTree = "<group>"; };
 		512E2BB32C0C590C00700D4A /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		512E2BB52C0C591A00700D4A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		512E2BB72C0C593900700D4A /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		512E2BBD2C0C615C00700D4A /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		512E2BBF2C0C65D000700D4A /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		512E2BC12C0C65D900700D4A /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
@@ -55,6 +55,7 @@
 		512E2BCD2C0C925F00700D4A /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
 		512E2BD12C0C959300700D4A /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		512E2BD32C0C95BF00700D4A /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
+		512E2BD52C0CB5C800700D4A /* NetworkMenager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMenager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +64,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				512E2BAA2C0C47F000700D4A /* SnapKit in Frameworks */,
+				512E2BD92C0D7E8D00700D4A /* NotificationBannerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,7 +112,7 @@
 				512E2BA62C0C47D000700D4A /* StartViewController.swift */,
 				512E2BB32C0C590C00700D4A /* SignInViewController.swift */,
 				512E2BB52C0C591A00700D4A /* SignUpViewController.swift */,
-				512E2BB72C0C593900700D4A /* CreateAccountViewController.swift */,
+				512E2BD52C0CB5C800700D4A /* NetworkMenager.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -188,6 +190,7 @@
 			name = chatApp;
 			packageProductDependencies = (
 				512E2BA92C0C47F000700D4A /* SnapKit */,
+				512E2BD82C0D7E8D00700D4A /* NotificationBannerSwift */,
 			);
 			productName = chatApp;
 			productReference = 512E2B8F2C0C471A00700D4A /* chatApp.app */;
@@ -219,6 +222,7 @@
 			mainGroup = 512E2B862C0C471A00700D4A;
 			packageReferences = (
 				512E2BA82C0C47F000700D4A /* XCRemoteSwiftPackageReference "SnapKit" */,
+				512E2BD72C0D7E8D00700D4A /* XCRemoteSwiftPackageReference "NotificationBanner" */,
 			);
 			productRefGroup = 512E2B902C0C471A00700D4A /* Products */;
 			projectDirPath = "";
@@ -252,7 +256,6 @@
 				512E2BD22C0C959300700D4A /* MessagesViewController.swift in Sources */,
 				512E2BD42C0C95BF00700D4A /* MessagesTableViewCell.swift in Sources */,
 				512E2BCE2C0C925F00700D4A /* ContactsTableViewCell.swift in Sources */,
-				512E2BB82C0C593900700D4A /* CreateAccountViewController.swift in Sources */,
 				512E2BC62C0C6FC800700D4A /* MoreTableViewCell.swift in Sources */,
 				512E2BB42C0C590C00700D4A /* SignInViewController.swift in Sources */,
 				512E2BCA2C0C752800700D4A /* MorePrivacyViewController.swift in Sources */,
@@ -262,6 +265,7 @@
 				512E2BC42C0C65E100700D4A /* MoreViewController.swift in Sources */,
 				512E2BC02C0C65D000700D4A /* ContactsViewController.swift in Sources */,
 				512E2BA72C0C47D000700D4A /* StartViewController.swift in Sources */,
+				512E2BD62C0CB5C800700D4A /* NetworkMenager.swift in Sources */,
 				512E2BC22C0C65D900700D4A /* ChatsViewController.swift in Sources */,
 				512E2BCC2C0C8FB200700D4A /* ChatTableViewCell.swift in Sources */,
 				512E2BB62C0C591A00700D4A /* SignUpViewController.swift in Sources */,
@@ -505,6 +509,14 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		512E2BD72C0D7E8D00700D4A /* XCRemoteSwiftPackageReference "NotificationBanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Daltron/NotificationBanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -512,6 +524,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 512E2BA82C0C47F000700D4A /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		512E2BD82C0D7E8D00700D4A /* NotificationBannerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 512E2BD72C0D7E8D00700D4A /* XCRemoteSwiftPackageReference "NotificationBanner" */;
+			productName = NotificationBannerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

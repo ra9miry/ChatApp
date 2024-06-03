@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import NotificationBannerSwift
 
 final class SignInViewController: UIViewController {
     
@@ -62,9 +63,33 @@ final class SignInViewController: UIViewController {
     }
     
     @objc func signInButtonTapped() {
-        navigationController?.pushViewController(TabBarViewController(), animated: true)
+        guard let email = emailTextField.text, !email.isEmpty,
+              let password = passwordTextField.text, !password.isEmpty else {
+            print("Email and Password are required")
+            return
+        }
+        
+        NetworkManager.shared.login(email: email, password: password) { result in
+            switch result {
+            case .success(let token):
+                DispatchQueue.main.async {
+                    print("Login successful, token: \(token)")
+                    self.navigationController?.pushViewController(TabBarViewController(), animated: true)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.showSnackBar(message: "Invalid email or password.")
+                    print("Login error: \(error.localizedDescription)")
+                }
+            }
+        }
     }
-    
+
+    private func showSnackBar(message: String) {
+        let banner = NotificationBanner(title: "Error", subtitle: message, style: .danger)
+        banner.show()
+    }
+
     @objc func popViewController() {
         navigationController?.popViewController(animated: true)
     }
