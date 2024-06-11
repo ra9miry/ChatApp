@@ -30,6 +30,7 @@
 		512E2BD42C0C95BF00700D4A /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BD32C0C95BF00700D4A /* MessagesTableViewCell.swift */; };
 		512E2BD62C0CB5C800700D4A /* NetworkMenager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BD52C0CB5C800700D4A /* NetworkMenager.swift */; };
 		512E2BD92C0D7E8D00700D4A /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 512E2BD82C0D7E8D00700D4A /* NotificationBannerSwift */; };
+		518EDED92C18BB8B00E6B3CD /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518EDED82C18BB8B00E6B3CD /* Contacts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		512E2BD12C0C959300700D4A /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		512E2BD32C0C95BF00700D4A /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
 		512E2BD52C0CB5C800700D4A /* NetworkMenager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMenager.swift; sourceTree = "<group>"; };
+		518EDED82C18BB8B00E6B3CD /* Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,10 +111,8 @@
 		512E2BB12C0C588800700D4A /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				512E2BA62C0C47D000700D4A /* StartViewController.swift */,
-				512E2BB32C0C590C00700D4A /* SignInViewController.swift */,
-				512E2BB52C0C591A00700D4A /* SignUpViewController.swift */,
-				512E2BD52C0CB5C800700D4A /* NetworkMenager.swift */,
+				518EDED52C18BB2C00E6B3CD /* Model */,
+				518EDED62C18BB4800E6B3CD /* ViewControllers */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -137,8 +137,8 @@
 		512E2BBA2C0C59B300700D4A /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
-				512E2BBF2C0C65D000700D4A /* ContactsViewController.swift */,
-				512E2BCD2C0C925F00700D4A /* ContactsTableViewCell.swift */,
+				518EDED72C18BB7600E6B3CD /* Model */,
+				518EDEDA2C18BB9900E6B3CD /* ViewControllers */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -170,6 +170,41 @@
 				512E2BD32C0C95BF00700D4A /* MessagesTableViewCell.swift */,
 			);
 			path = Messages;
+			sourceTree = "<group>";
+		};
+		518EDED52C18BB2C00E6B3CD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				512E2BD52C0CB5C800700D4A /* NetworkMenager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		518EDED62C18BB4800E6B3CD /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				512E2BA62C0C47D000700D4A /* StartViewController.swift */,
+				512E2BB32C0C590C00700D4A /* SignInViewController.swift */,
+				512E2BB52C0C591A00700D4A /* SignUpViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		518EDED72C18BB7600E6B3CD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				518EDED82C18BB8B00E6B3CD /* Contacts.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		518EDEDA2C18BB9900E6B3CD /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				512E2BBF2C0C65D000700D4A /* ContactsViewController.swift */,
+				512E2BCD2C0C925F00700D4A /* ContactsTableViewCell.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +298,7 @@
 				512E2B952C0C471A00700D4A /* SceneDelegate.swift in Sources */,
 				512E2BBE2C0C615C00700D4A /* TabBarViewController.swift in Sources */,
 				512E2BC42C0C65E100700D4A /* MoreViewController.swift in Sources */,
+				518EDED92C18BB8B00E6B3CD /* Contacts.swift in Sources */,
 				512E2BC02C0C65D000700D4A /* ContactsViewController.swift in Sources */,
 				512E2BA72C0C47D000700D4A /* StartViewController.swift in Sources */,
 				512E2BD62C0CB5C800700D4A /* NetworkMenager.swift in Sources */,

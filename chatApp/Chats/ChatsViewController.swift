@@ -31,12 +31,7 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
         return tv
     }()
     
-    private var chatUsers: [ChatUser] = [
-        ChatUser(avatarName: "ava1", userName: "Athalia Putri", lastMessage: "Good morning, did you sleep well?"),
-        ChatUser(avatarName: "ava2", userName: "Raki Devon", lastMessage: "How is it going?"),
-        ChatUser(avatarName: "ava3", userName: "Erlan Sadewa", lastMessage: "Aight, noted")
-    ]
-    
+    private var chatUsers: [ChatUser] = []
     private var filteredChatUsers: [ChatUser] = []
     
     override func viewDidLoad() {
@@ -54,7 +49,7 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
         view.addGestureRecognizer(tapGesture)
         
         setupConstraints()
-        filteredChatUsers = chatUsers
+        fetchChats()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,6 +110,25 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    private func fetchChats() {
+        guard let username = NetworkManager.shared.getUsernameFromDefaults() else { return }
+        
+        NetworkManager.shared.getUserChats(username: username) { [weak self] result in
+            switch result {
+            case .success(let chats):
+                self?.chatUsers = chats.map { chat in
+                    ChatUser(avatarName: "defaultAvatar", userName: chat.participants.first { $0.username != username }?.username ?? "Unknown", lastMessage: chat.messages.last?.content ?? "")
+                }
+                self?.filteredChatUsers = self?.chatUsers ?? []
+                DispatchQueue.main.async {
+                    self?.chatsTableView.reloadData()
+                }
+            case .failure(let error):
+                print("Failed to fetch chats: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredChatUsers.count
     }
@@ -130,6 +144,7 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let messagesVC = MessagesViewController()
+        messagesVC.chatId = indexPath.row
         messagesVC.title = filteredChatUsers[indexPath.row].userName
         navigationController?.pushViewController(messagesVC, animated: true)
     }
@@ -148,8 +163,6 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
         chatsTableView.reloadData()
     }
     
-    // MARK: - Helper Methods
-    
     private func createDoneToolbar() -> UIToolbar {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
@@ -162,8 +175,6 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
     @objc private func doneButtonTapped() {
         searchTextField.resignFirstResponder()
     }
-    
-    // MARK: - UIGestureRecognizerDelegate
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if let view = touch.view, view.isDescendant(of: chatsTableView) {

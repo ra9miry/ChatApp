@@ -1,92 +1,62 @@
-//
-//  MessagesTableViewCell.swift
-//  chatApp
-//
-//  Created by Радмир Тельман on 02.06.2024.
-//
-
 import UIKit
 import SnapKit
 
-final class MessagesTableViewCell: UITableViewCell {
-    let messageLabel = UILabel()
-    let timestampLabel = UILabel()
-    let bubbleBackgroundView = UIView()
-
-    var isIncoming: Bool = false {
-        didSet {
-            bubbleBackgroundView.backgroundColor = isIncoming ? UIColor(named: "nblue") : UIColor(named: "nwhite")
-            messageLabel.textColor = .black
-            timestampLabel.textColor = .black
-
-            if isIncoming {
-                leadingConstraint.isActive = true
-                trailingConstraint.isActive = false
-            } else {
-                leadingConstraint.isActive = false
-                trailingConstraint.isActive = true
-            }
-        }
-    }
-
-    var leadingConstraint: NSLayoutConstraint!
-    var trailingConstraint: NSLayoutConstraint!
-
+class MessagesTableViewCell: UITableViewCell {
+    
+    let messageLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.numberOfLines = 0
+        label.textColor = .black
+        return label
+    }()
+    
+    let timeLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = .gray
+        return label
+    }()
+    
+    let bubbleView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 16
+        view.backgroundColor = UIColor(named: "nlightgray")
+        return view
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
-        print("IntegrationMessageCell init called")
-        setupIntegrationViews()
-        setupIntegrationConstraints()
+        setupViews()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        print("IntegrationMessageCell layoutSubviews called")
-
-        let maxWidth = UIScreen.main.bounds.width - leadingConstraint.constant - abs(trailingConstraint.constant)
-        messageLabel.preferredMaxLayoutWidth = maxWidth
+    
+    private func setupViews() {
+        addSubview(bubbleView)
+        bubbleView.addSubview(messageLabel)
+        bubbleView.addSubview(timeLabel)
+        
+        bubbleView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview().inset(10)
+            make.bottom.equalToSuperview()
+        }
+        
+        messageLabel.snp.makeConstraints { make in
+            make.top.leading.trailing.equalTo(bubbleView).inset(10)
+        }
+        
+        timeLabel.snp.makeConstraints { make in
+            make.top.equalTo(messageLabel.snp.bottom).offset(5)
+            make.leading.trailing.equalTo(bubbleView).inset(10)
+            make.bottom.equalTo(bubbleView).inset(10)
+        }
     }
     
-    private func setupIntegrationViews() {
-        print("setupIntegrationViews called")
-        backgroundColor = .clear
-        bubbleBackgroundView.layer.cornerRadius = 16
-        bubbleBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(bubbleBackgroundView)
-
-        messageLabel.numberOfLines = 0
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(messageLabel)
-
-        timestampLabel.font = UIFont.systemFont(ofSize: 10)
-        timestampLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(timestampLabel)
-    }
-    
-    private func setupIntegrationConstraints() {
-        print("setupIntegrationConstraints called")
-        leadingConstraint = messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32)
-        trailingConstraint = messageLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32)
-
-        NSLayoutConstraint.activate([
-            messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            leadingConstraint,
-            trailingConstraint,
-
-            bubbleBackgroundView.topAnchor.constraint(equalTo: messageLabel.topAnchor, constant: -10),
-            bubbleBackgroundView.leadingAnchor.constraint(equalTo: messageLabel.leadingAnchor, constant: -10),
-            bubbleBackgroundView.bottomAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 10),
-            bubbleBackgroundView.trailingAnchor.constraint(equalTo: messageLabel.trailingAnchor, constant: 10),
-            
-            timestampLabel.topAnchor.constraint(equalTo: bubbleBackgroundView.bottomAnchor, constant: 4),
-            timestampLabel.leadingAnchor.constraint(equalTo: bubbleBackgroundView.leadingAnchor, constant: 10),
-            timestampLabel.trailingAnchor.constraint(equalTo: bubbleBackgroundView.trailingAnchor, constant: -10),
-            timestampLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
-        ])
+    func configure(with message: Message, dateFormatter: DateFormatter) {
+        messageLabel.text = message.content
+        timeLabel.text = dateFormatter.string(from: message.createdAt)
     }
 }

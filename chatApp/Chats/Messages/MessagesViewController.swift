@@ -3,12 +3,13 @@ import SnapKit
 
 final class MessagesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
+    var chatId: Int?
+    private var messages: [Message] = []
+    
     let tableView = UITableView()
     let textField = UITextField()
     let sendButton = UIButton(type: .custom)
     let sendAssetButton = UIButton()
-    
-    let messages = 0
     
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -42,6 +43,8 @@ final class MessagesViewController: UIViewController, UITableViewDelegate, UITab
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
+        
+        fetchMessages()
     }
     
     @objc private func dismissKeyboard() {
@@ -84,8 +87,28 @@ final class MessagesViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     @objc func sendButtonTapped() {
+        guard let chatId = chatId, let content = textField.text, !content.isEmpty else { return }
+        // Implement the send message functionality here
     }
+    
     @objc func sendAssetsButtonTapped() {
+        // Implement the send assets functionality here
+    }
+    
+    private func fetchMessages() {
+        guard let chatId = chatId else { return }
+        
+        NetworkManager.shared.getChatMessages(chatId: chatId) { [weak self] result in
+            switch result {
+            case .success(let messages):
+                self?.messages = messages
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            case .failure(let error):
+                print("Failed to fetch messages: \(error.localizedDescription)")
+            }
+        }
     }
     
     private func setupConstraints() {
@@ -188,11 +211,13 @@ final class MessagesViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessagesTableViewCell
+        let message = messages[indexPath.row]
+        cell.configure(with: message, dateFormatter: dateFormatter)
         return cell
     }
 }

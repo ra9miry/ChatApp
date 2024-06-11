@@ -3,12 +3,6 @@ import Contacts
 import ContactsUI
 import SnapKit
 
-struct YourContacts {
-    var avatarInitial: String
-    var userName: String
-    var phoneNumber: String
-}
-
 final class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CNContactPickerDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate {
 
     private lazy var searchTextField: UITextField = {

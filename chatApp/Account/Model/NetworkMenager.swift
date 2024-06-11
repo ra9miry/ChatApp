@@ -17,8 +17,28 @@ struct User: Codable {
     }
 }
 
-struct Message: Codable { }
-struct Chat: Codable { }
+struct Chat: Codable {
+    let id: Int
+    let participants: [User]
+    let messages: [Message]
+}
+
+struct Message: Codable {
+    let id: Int
+    let chatId: Int
+    let userId: Int
+    let content: String
+    let createdAt: Date
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case chatId = "chat_id"
+        case userId = "user_id"
+        case content
+        case createdAt = "created_at"
+    }
+}
+
 struct ChatParticipant: Codable { }
 
 class NetworkManager {
@@ -105,6 +125,78 @@ class NetworkManager {
                 }
             } else {
                 let errorMessage = String(data: data, encoding: .utf8) ?? "Failed to login"
+                completion(.failure(NSError(domain: "", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: errorMessage])))
+            }
+        }
+
+        task.resume()
+    }
+
+    func getUserChats(username: String, completion: @escaping (Result<[Chat], Error>) -> Void) {
+        guard let url = URL(string: "\(baseURL)/user/chats/\(username)") else {
+            print("Invalid URL")
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let data = data, let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data"])))
+                return
+            }
+
+            print("HTTP Status Code: \(httpResponse.statusCode)")
+            print("Response: \(String(data: data, encoding: .utf8) ?? "No response")")
+
+            if httpResponse.statusCode == 200 {
+                do {
+                    let chats = try JSONDecoder().decode([Chat].self, from: data)
+                    completion(.success(chats))
+                } catch let decodingError {
+                    completion(.failure(decodingError))
+                }
+            } else {
+                let errorMessage = String(data: data, encoding: .utf8) ?? "Failed to fetch chats"
+                completion(.failure(NSError(domain: "", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: errorMessage])))
+            }
+        }
+
+        task.resume()
+    }
+
+    func getChatMessages(chatId: Int, completion: @escaping (Result<[Message], Error>) -> Void) {
+        guard let url = URL(string: "\(baseURL)/messages/\(chatId)") else {
+            print("Invalid URL")
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let data = data, let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data"])))
+                return
+            }
+
+            print("HTTP Status Code: \(httpResponse.statusCode)")
+            print("Response: \(String(data: data, encoding: .utf8) ?? "No response")")
+
+            if httpResponse.statusCode == 200 {
+                do {
+                    let messages = try JSONDecoder().decode([Message].self, from: data)
+                    completion(.success(messages))
+                } catch let decodingError {
+                    completion(.failure(decodingError))
+                }
+            } else {
+                let errorMessage = String(data: data, encoding: .utf8) ?? "Failed to fetch messages"
                 completion(.failure(NSError(domain: "", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: errorMessage])))
             }
         }
