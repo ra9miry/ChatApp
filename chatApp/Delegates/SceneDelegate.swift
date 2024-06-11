@@ -8,7 +8,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        window?.rootViewController = UINavigationController(rootViewController: StartViewController())
+        if let _ = NetworkManager.shared.getUsernameFromDefaults() {
+            window?.rootViewController = UINavigationController(rootViewController: TabBarViewController())
+        } else {
+            window?.rootViewController = UINavigationController(rootViewController: StartViewController())
+        }
+        
         window?.makeKeyAndVisible()
     }
 }

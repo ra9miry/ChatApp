@@ -2,7 +2,7 @@ import UIKit
 import SnapKit
 import NotificationBannerSwift
 
-final class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+final class SignUpViewController: UIViewController {
 
     private var mainLabel: UILabel = {
         let label = UILabel()
@@ -14,17 +14,6 @@ final class SignUpViewController: UIViewController, UIImagePickerControllerDeleg
         return label
     }()
 
-    private lazy var profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "pi")
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 50
-        imageView.clipsToBounds = true
-        imageView.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(selectProfileImage))
-        imageView.addGestureRecognizer(tapGesture)
-        return imageView
-    }()
     private lazy var usernameTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Username"
@@ -52,6 +41,8 @@ final class SignUpViewController: UIViewController, UIImagePickerControllerDeleg
         tf.layer.cornerRadius = 12
         tf.setLeftPaddingPoints(20)
         tf.setPlaceholder(color: UIColor(named: "ngray") ?? .gray)
+        tf.isSecureTextEntry = true
+        tf.textContentType = .oneTimeCode // This prevents the automatic strong password suggestion
         return tf
     }()
 
@@ -73,7 +64,6 @@ final class SignUpViewController: UIViewController, UIImagePickerControllerDeleg
         navigationItem.leftBarButtonItem = backBarButtonItem
 
         view.addSubview(mainLabel)
-        view.addSubview(profileImageView)
         view.addSubview(usernameTextField)
         view.addSubview(emailTextField)
         view.addSubview(passwordTextField)
@@ -85,48 +75,28 @@ final class SignUpViewController: UIViewController, UIImagePickerControllerDeleg
         view.addGestureRecognizer(tapGesture)
     }
 
-    @objc func selectProfileImage() {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.sourceType = .photoLibrary
-        present(imagePickerController, animated: true, completion: nil)
-    }
-
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            profileImageView.image = selectedImage
-        }
-        dismiss(animated: true, completion: nil)
-    }
-
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-
     @objc func signUpButtonTapped() {
-         guard let username = usernameTextField.text, !username.isEmpty,
-               let email = emailTextField.text, !email.isEmpty,
-               let password = passwordTextField.text, !password.isEmpty else {
-             print("All fields are required")
-             return
-         }
+        guard let username = usernameTextField.text, !username.isEmpty,
+              let email = emailTextField.text, !email.isEmpty,
+              let password = passwordTextField.text, !password.isEmpty else {
+            showSnackBar(message: "All fields are required")
+            return
+        }
 
-         NetworkManager.shared.register(username: username, email: email, password: password) { result in
-             switch result {
-             case .success(let user):
-                 DispatchQueue.main.async {
-                     print("Registration successful, userId: \(user.id)")
-                     self.navigationController?.pushViewController(TabBarViewController(), animated: true)
-                 }
-             case .failure(let error):
-                 DispatchQueue.main.async {
-                     self.showSnackBar(message: "Invalid data provided.")
-                     print("Registration error: \(error.localizedDescription)")
-                 }
-             }
-         }
-     }
-    
+        NetworkManager.shared.register(username: username, email: email, password: password) { result in
+            switch result {
+            case .success(let user):
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(TabBarViewController(), animated: true)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.showSnackBar(message: error.localizedDescription)
+                }
+            }
+        }
+    }
+
     private func showSnackBar(message: String) {
         let banner = NotificationBanner(title: "Error", subtitle: message, style: .danger)
         banner.show()
@@ -145,17 +115,13 @@ final class SignUpViewController: UIViewController, UIImagePickerControllerDeleg
             make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
             make.leading.trailing.equalToSuperview().inset(20)
         }
-        profileImageView.snp.makeConstraints { make in
-            make.top.equalTo(mainLabel.snp.bottom).offset(16)
-            make.centerX.equalToSuperview()
-            make.width.height.equalTo(100)
-        }
 
         usernameTextField.snp.makeConstraints { make in
-            make.top.equalTo(profileImageView.snp.bottom).offset(32)
+            make.top.equalTo(mainLabel.snp.bottom).offset(32)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(50)
         }
+
         emailTextField.snp.makeConstraints { make in
             make.top.equalTo(usernameTextField.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)

@@ -3,18 +3,9 @@ import SnapKit
 
 final class MoreViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    private lazy var profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "moredef")
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 50
-        imageView.clipsToBounds = true
-        return imageView
-    }()
-    
     private let profileLabel: UILabel = {
         let label = UILabel()
-        label.text = "Almayra Zamzamy"
+        label.text = NetworkManager.shared.getUsernameFromDefaults()
         label.textColor = UIColor(named: "nblack")
         label.font = UIFont(name: "mulish-bold", size: 24)
         label.numberOfLines = 0
@@ -27,13 +18,12 @@ final class MoreViewController: UIViewController, UITableViewDelegate, UITableVi
         tv.separatorStyle = .none
         return tv
     }()
-    private let icons = ["more1", "more3", "more4", "more5"]
+    private let icons = ["more1", "more3", "more4", "more5","more6"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "nwhite")
-        
-        view.addSubview(profileImageView)
+    
         view.addSubview(profileLabel)
         view.addSubview(moreTableView)
         
@@ -82,15 +72,10 @@ final class MoreViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     private func setupConstraints() {
-        profileImageView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
-            make.centerX.equalToSuperview()
-            make.width.height.equalTo(100)
-        }
         
         profileLabel.snp.makeConstraints { make in
-            make.top.equalTo(profileImageView.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(32)
+            make.leading.equalToSuperview().offset(24)
         }
         
         moreTableView.snp.makeConstraints { make in
@@ -127,6 +112,8 @@ final class MoreViewController: UIViewController, UITableViewDelegate, UITableVi
             openInvite()
         case 3:
             openAbout()
+        case 4:
+            exitYourAccount()
         default:
             break
         }
@@ -164,5 +151,13 @@ final class MoreViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     private func openAbout() {
+    }
+    
+    private func exitYourAccount() {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let delegate = windowScene.delegate as? SceneDelegate {
+            let startViewController = UINavigationController(rootViewController: StartViewController())
+            delegate.window?.rootViewController = startViewController
+        }
     }
 }

@@ -54,20 +54,20 @@ final class StartViewController: UIViewController {
     }
     
     private func setupConstraints() {
-        mainImageView.snp.makeConstraints() { make in
+        mainImageView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(32)
             make.centerX.equalToSuperview()
         }
-        mainLabel.snp.makeConstraints() { make in
+        mainLabel.snp.makeConstraints { make in
             make.top.equalTo(mainImageView.snp.bottom).offset(32)
             make.leading.equalToSuperview().offset(32)
             make.trailing.equalToSuperview().offset(-32)
         }
-        signInButton.snp.makeConstraints() { make in
+        signInButton.snp.makeConstraints { make in
             make.bottom.equalTo(signUpButton.snp.top).offset(-10)
             make.centerX.equalToSuperview()
         }
-        signUpButton.snp.makeConstraints() { make in
+        signUpButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-32)
         }
