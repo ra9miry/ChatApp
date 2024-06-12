@@ -1,13 +1,13 @@
 import UIKit
 import SnapKit
 
-struct ChatUser {
+struct ChatUser: Codable {
     var avatarName: String
     var userName: String
     var lastMessage: String
 }
 
-final class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
+final class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, AddedChatsViewControllerDelegate {
 
     private lazy var searchTextField: UITextField = {
         let tf = UITextField()
@@ -31,7 +31,11 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
         return tv
     }()
     
-    private var chatUsers: [ChatUser] = []
+    private var chatUsers: [ChatUser] = [] {
+        didSet {
+            saveChatUsersToDefaults()
+        }
+    }
     private var filteredChatUsers: [ChatUser] = []
     
     override func viewDidLoad() {
@@ -49,7 +53,7 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
         view.addGestureRecognizer(tapGesture)
         
         setupConstraints()
-        fetchChats()
+        loadChatUsersFromDefaults()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,6 +66,7 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
         let navigationBarAppearance = createNavigationBarAppearance()
         applyAppearanceToNavigationBar(appearance: navigationBarAppearance)
         configureCenteredTitle()
+        configureRightBarButton()
     }
 
     private func configureCenteredTitle() {
@@ -74,7 +79,23 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
         let leftBarItem = UIBarButtonItem(customView: titleLabel)
         self.navigationItem.leftBarButtonItem = leftBarItem
     }
-    
+
+    private func configureRightBarButton() {
+        let rightButton = UIButton(type: .system)
+        rightButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
+        rightButton.tintColor = UIColor(named: "nblack")
+        let rightBarButtonItem = UIBarButtonItem(customView: rightButton)
+        self.navigationItem.rightBarButtonItem = rightBarButtonItem
+    }
+
+    @objc func rightButtonTapped() {
+        let addedChatsVC = AddedChatsViewController()
+        addedChatsVC.delegate = self
+        let navigationController = UINavigationController(rootViewController: addedChatsVC)
+        present(navigationController, animated: true, completion: nil)
+    }
+
     private func createNavigationBarAppearance() -> UINavigationBarAppearance {
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = UIColor(named: "nwhite")
@@ -102,7 +123,7 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(50)
         }
-        chatsTableView.snp.makeConstraints() { make in
+        chatsTableView.snp.makeConstraints { make in
             make.top.equalTo(searchTextField.snp.bottom).offset(16)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
@@ -110,22 +131,17 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    private func fetchChats() {
-        guard let username = NetworkManager.shared.getUsernameFromDefaults() else { return }
-        
-        NetworkManager.shared.getUserChats(username: username) { [weak self] result in
-            switch result {
-            case .success(let chats):
-                self?.chatUsers = chats.map { chat in
-                    ChatUser(avatarName: "defaultAvatar", userName: chat.participants.first { $0.username != username }?.username ?? "Unknown", lastMessage: chat.messages.last?.content ?? "")
-                }
-                self?.filteredChatUsers = self?.chatUsers ?? []
-                DispatchQueue.main.async {
-                    self?.chatsTableView.reloadData()
-                }
-            case .failure(let error):
-                print("Failed to fetch chats: \(error.localizedDescription)")
-            }
+    private func saveChatUsersToDefaults() {
+        let userDefaults = UserDefaults.standard
+        userDefaults.saveChatUsers(chatUsers)
+    }
+    
+    private func loadChatUsersFromDefaults() {
+        let userDefaults = UserDefaults.standard
+        if let loadedUsers = userDefaults.loadChatUsersArray() {
+            chatUsers = loadedUsers
+            filteredChatUsers = chatUsers
+            chatsTableView.reloadData()
         }
     }
     
@@ -181,5 +197,13 @@ final class ChatsViewController: UIViewController, UITableViewDelegate, UITableV
             return false
         }
         return true
+    }
+
+    // MARK: - AddedChatsViewControllerDelegate
+    func didAddUserToChat(_ user: User) {
+        let chatUser = ChatUser(avatarName: "defaultAvatar", userName: user.username, lastMessage: "")
+        chatUsers.append(chatUser)
+        filteredChatUsers = chatUsers
+        chatsTableView.reloadData()
     }
 }

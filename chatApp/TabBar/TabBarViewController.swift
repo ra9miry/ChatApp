@@ -25,6 +25,7 @@ final class TabBarViewController: UITabBarController, UITabBarControllerDelegate
     private func setupNavigationBar() {
         let contactsVC = ContactsViewController()
         let chatsVC = ChatsViewController()
+        let helperVC = ChatsViewController()
         let moreVC = MoreViewController()
 
         tabBar.tintColor = UIColor(named: "nblack")
@@ -34,6 +35,7 @@ final class TabBarViewController: UITabBarController, UITabBarControllerDelegate
         self.viewControllers = [
             createNavController(for: contactsVC, image: UIImage(named: "tab1"), selectedImage: UIImage(named: "tab1s")),
             createNavController(for: chatsVC, image: UIImage(named: "tab2"), selectedImage: UIImage(named: "tab2s")),
+            createNavController(for: helperVC, image: UIImage(named: "tab4"), selectedImage: UIImage(named: "tab4s")),
             createNavController(for: moreVC, image: UIImage(named: "tab3"), selectedImage: UIImage(named: "tab3s"))
         ]
     }

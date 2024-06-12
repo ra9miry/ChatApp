@@ -203,7 +203,44 @@ class NetworkManager {
 
         task.resume()
     }
+    func getAllUsers(completion: @escaping (Result<[User], Error>) -> Void) {
+        guard let url = URL(string: "\(baseURL)/user") else {
+            print("Invalid URL")
+            return
+        }
 
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let data = data, let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data"])))
+                return
+            }
+
+            print("HTTP Status Code: \(httpResponse.statusCode)")
+            print("Response: \(String(data: data, encoding: .utf8) ?? "No response")")
+
+            if httpResponse.statusCode == 200 {
+                do {
+                    let users = try JSONDecoder().decode([User].self, from: data)
+                    completion(.success(users))
+                } catch let decodingError {
+                    completion(.failure(decodingError))
+                }
+            } else {
+                let errorMessage = String(data: data, encoding: .utf8) ?? "Failed to fetch users"
+                completion(.failure(NSError(domain: "", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: errorMessage])))
+            }
+        }
+
+        task.resume()
+    }
+    func addUserToChats(user: User, completion: @escaping (Result<Void, Error>) -> Void) {
+          completion(.success(()))
+      }
     private func saveUserToDefaults(_ user: User) {
         let defaults = UserDefaults.standard
         defaults.set(user.username, forKey: "username")

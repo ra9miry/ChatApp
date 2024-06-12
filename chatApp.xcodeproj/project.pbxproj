@@ -31,6 +31,9 @@
 		512E2BD62C0CB5C800700D4A /* NetworkMenager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E2BD52C0CB5C800700D4A /* NetworkMenager.swift */; };
 		512E2BD92C0D7E8D00700D4A /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 512E2BD82C0D7E8D00700D4A /* NotificationBannerSwift */; };
 		518EDED92C18BB8B00E6B3CD /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518EDED82C18BB8B00E6B3CD /* Contacts.swift */; };
+		518EDEE22C19D0B700E6B3CD /* AddedChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518EDEE12C19D0B700E6B3CD /* AddedChatsViewController.swift */; };
+		518EDEE42C19D7EA00E6B3CD /* ChatUsersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518EDEE32C19D7EA00E6B3CD /* ChatUsersTableViewCell.swift */; };
+		518EDEEB2C1A001A00E6B3CD /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518EDEEA2C1A001A00E6B3CD /* UserDefaults.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +61,9 @@
 		512E2BD32C0C95BF00700D4A /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
 		512E2BD52C0CB5C800700D4A /* NetworkMenager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMenager.swift; sourceTree = "<group>"; };
 		518EDED82C18BB8B00E6B3CD /* Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
+		518EDEE12C19D0B700E6B3CD /* AddedChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedChatsViewController.swift; sourceTree = "<group>"; };
+		518EDEE32C19D7EA00E6B3CD /* ChatUsersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUsersTableViewCell.swift; sourceTree = "<group>"; };
+		518EDEEA2C1A001A00E6B3CD /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,9 +152,9 @@
 		512E2BBB2C0C59C900700D4A /* Chats */ = {
 			isa = PBXGroup;
 			children = (
+				518EDEE92C19F7CC00E6B3CD /* UserChats */,
+				518EDEE82C19F7BA00E6B3CD /* Added */,
 				512E2BD02C0C94F100700D4A /* Messages */,
-				512E2BC12C0C65D900700D4A /* ChatsViewController.swift */,
-				512E2BCB2C0C8FB200700D4A /* ChatTableViewCell.swift */,
 			);
 			path = Chats;
 			sourceTree = "<group>";
@@ -205,6 +211,25 @@
 				512E2BCD2C0C925F00700D4A /* ContactsTableViewCell.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		518EDEE82C19F7BA00E6B3CD /* Added */ = {
+			isa = PBXGroup;
+			children = (
+				518EDEE12C19D0B700E6B3CD /* AddedChatsViewController.swift */,
+				518EDEE32C19D7EA00E6B3CD /* ChatUsersTableViewCell.swift */,
+			);
+			path = Added;
+			sourceTree = "<group>";
+		};
+		518EDEE92C19F7CC00E6B3CD /* UserChats */ = {
+			isa = PBXGroup;
+			children = (
+				512E2BC12C0C65D900700D4A /* ChatsViewController.swift */,
+				512E2BCB2C0C8FB200700D4A /* ChatTableViewCell.swift */,
+				518EDEEA2C1A001A00E6B3CD /* UserDefaults.swift */,
+			);
+			path = UserChats;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				518EDEE42C19D7EA00E6B3CD /* ChatUsersTableViewCell.swift in Sources */,
 				512E2BD22C0C959300700D4A /* MessagesViewController.swift in Sources */,
 				512E2BD42C0C95BF00700D4A /* MessagesTableViewCell.swift in Sources */,
 				512E2BCE2C0C925F00700D4A /* ContactsTableViewCell.swift in Sources */,
@@ -301,7 +327,9 @@
 				518EDED92C18BB8B00E6B3CD /* Contacts.swift in Sources */,
 				512E2BC02C0C65D000700D4A /* ContactsViewController.swift in Sources */,
 				512E2BA72C0C47D000700D4A /* StartViewController.swift in Sources */,
+				518EDEE22C19D0B700E6B3CD /* AddedChatsViewController.swift in Sources */,
 				512E2BD62C0CB5C800700D4A /* NetworkMenager.swift in Sources */,
+				518EDEEB2C1A001A00E6B3CD /* UserDefaults.swift in Sources */,
 				512E2BC22C0C65D900700D4A /* ChatsViewController.swift in Sources */,
 				512E2BCC2C0C8FB200700D4A /* ChatTableViewCell.swift in Sources */,
 				512E2BB62C0C591A00700D4A /* SignUpViewController.swift in Sources */,
